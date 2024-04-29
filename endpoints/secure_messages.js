@@ -20,6 +20,12 @@ server.post("/add_train", [auth], async (req, res) => {
 
         const { name, source, destination, stations, departureTime, totalSeats, bookedSeats } = req.body;
 
+
+        const existingTrain = await Train.findOne({ where: { name } });
+        if (existingTrain) {
+            return res.status(400).json({ ok: false, error: "Train already exists." });
+        }
+
         const newTrain = await Train.create({
             name,
             source,

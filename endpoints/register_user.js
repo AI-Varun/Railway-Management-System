@@ -4,7 +4,7 @@ const User = require("../models/user");
 const server = express.Router();
 
 server.post("/", async (req, res) => {
-    console.log("req", req.body);
+
     const { email, password, roles, secretKey } = req.body;
 
     const existingUser = await User.findOne({ where: { email } });
